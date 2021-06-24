@@ -1,13 +1,14 @@
 import sha256 from 'crypto-js/sha256'
+import { getUTCDate } from './utils'
 
 export class LogEntry {
-    constructor(prevHash, message, timestamp) {
+    constructor({ prevHash, message, timestamp }) {
       this.prevHash = prevHash
       this.message = message
       this.timestamp = timestamp
   
+      this.nonce = 0;
       this.hash = this.computeHash()
-      this.nonce = null;
     }
   
     computeHash() {
@@ -28,7 +29,11 @@ export class LogEntry {
   
   export class Log {
     constructor() {
-      const initialEntry = new LogEntry(new Date().toUTCString(), "Hi there, I'm Kenneth", "-")
+      const initialEntry = new LogEntry({
+        timestamp: getUTCDate(),
+        message: "Hi there, I'm Kenneth",
+        prevHash: "-"
+      })
   
       this.entries = [initialEntry]
     }
@@ -42,13 +47,25 @@ export class LogEntry {
      * @param {LogEntry} entry 
      */
     write(entry) {
-      // TODO: add entry linking here
-      // get previous hash
-      // calculate nonce 
+      entry.prevHash = this.last().hash
+
+      const expectedPrefix = "00"
+
+      while (entry.hash.substring(0, 2) !== expectedPrefix) {
+        entry.nonce += 1;
+        entry.hash = entry.computeHash()
+      }
+
       this.entries.push(entry)
     }
     // TODO: IoC this one so we can snapshot when test flushing
     flush() {
-      // TODO: periodically write to file and empty from memory
+      let content = ''
+      let currentEntries = this.entries;
+      currentEntries.forEach(entry => {
+        content += `${entry.hash},${entry.message},${entry.nonce}\n`
+      })
+
+      return content
     }
   }

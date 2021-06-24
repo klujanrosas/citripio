@@ -1,3 +1,5 @@
+import { getUTCDate } from "./utils"
+
 export function configure({
   app, logInstance, models: { LogEntry }
 }) {
@@ -19,10 +21,14 @@ export function configure({
     // TODO: IoC this for testing
     handler(request, reply) {
       try {
-        const entry = new LogEntry(logInstance.last().hash, request.body.message, new Date().toUTCString())
+        const entry = new LogEntry({
+          message: request.body.message,
+          timestamp: getUTCDate()
+        })
         logInstance.write(entry)
         reply.status(200).send(entry.toString())
       } catch(e) {
+        console.log(e)
         reply.status(500).send()
       }
     }
