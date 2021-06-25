@@ -2,9 +2,21 @@ import fs from 'fs';
 
 let ID = null;
 
-export function startProcessing({ logInstance, app }) {
+const defaultProcessingOptions = {
+  writer: { write: writeEntries },
+};
+export function startProcessing(processingOptions) {
+  const {
+    logInstance,
+    app,
+    writer = { write: writeEntries },
+  } = {
+    ...defaultProcessingOptions,
+    ...processingOptions,
+  };
+
   ID = setInterval(() => {
-    writeEntries({
+    writer.write({
       content: logInstance.flush(),
       onFinish() {
         app.log.info('Wrote to file on disk.');
@@ -22,7 +34,6 @@ export function stopProcessing() {
 
 export function writeEntries({ content, onFinish, onError }) {
   const stream = fs.createWriteStream('./log-entries.csv', {
-    // flags: 'a'
     autoClose: true,
   });
 
