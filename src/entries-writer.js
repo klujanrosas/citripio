@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { getConfig } from './config';
 
 let ID = null;
 
@@ -33,7 +34,7 @@ export function stopProcessing() {
 }
 
 export function writeEntries({ content, onFinish, onError }) {
-  const stream = fs.createWriteStream('./log-entries.csv', {
+  const stream = fs.createWriteStream(getConfig().FILENAME, {
     autoClose: true,
   });
 
