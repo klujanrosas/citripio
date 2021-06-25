@@ -3,7 +3,7 @@
   "description": "A barebones file system logger with crypto sprinkled on top",
   "author": "Kenneth Lujan <kenneth.lujan@kw.com> (https://github.com/klujanrosas)",
   "scripts": {
-    "start": "node -r esm index.js",
+    "start": "node -r esm src/index.js",
     "test": "TODO"
   },
   "dependencies": {
