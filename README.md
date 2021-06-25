@@ -27,19 +27,25 @@ POST /citripio
 
 ### Testing
 
-Run all tests
+##### Run all tests
+
+Runs unit and integration tests on a single command.
 
 ```
 yarn test
 ```
 
-Run unit tests
+##### Run unit tests
+
+All code under src/ will be scanned for tests which will then be executed.
 
 ```
 yarn test:unit
 ```
 
-Run integration tests
+##### Run integration tests
+
+A server with a random (available) port will be spawned and killed immediately after tests finish running. Real GET/POST requests will be fired towards this temporary server.
 
 ```
 yarn test:integration
