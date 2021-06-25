@@ -1,5 +1,6 @@
 import sha256 from 'crypto-js/sha256';
 import { getUTCDate } from './utils';
+import { getConfig } from './config';
 
 export class LogEntry {
   constructor({ prevHash, message, timestamp }) {
@@ -12,9 +13,13 @@ export class LogEntry {
   }
 
   computeHash() {
-    const hash = sha256(
-      this.prevHash + this.timestamp + this.message + this.nonce
-    );
+    let word = this.prevHash + this.message;
+    if (getConfig().TIMESTAMP === true) {
+      word += this.timestamp;
+    }
+    word += this.nonce;
+
+    const hash = sha256(word);
 
     return hash.toString();
   }
@@ -60,7 +65,6 @@ export class Log {
 
     this.entries.push(entry);
   }
-  // TODO: IoC this one so we can snapshot when test flushing
   flush() {
     let content = '';
     let currentEntries = this.entries;
