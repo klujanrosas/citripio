@@ -11,16 +11,38 @@ A barebones linked entries log with crypto sprinkled on top 🐱‍🏍
 ### Routes
 
 List current entries in log
+
 ```
 GET /
 ```
 
 Write an entry into the log
+
 ```
 POST /citripio
 {
   "message": "my cool message"
 }
+```
+
+### Testing
+
+Run all tests
+
+```
+yarn test
+```
+
+Run unit tests
+
+```
+yarn test:unit
+```
+
+Run integration tests
+
+```
+yarn test:integration
 ```
 
 ### Inner workings
