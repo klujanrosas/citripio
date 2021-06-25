@@ -4,7 +4,9 @@
   "author": "Kenneth Lujan <kenneth.lujan@kw.com> (https://github.com/klujanrosas)",
   "scripts": {
     "start": "cross-env TIMESTAMP=true PORT=3000 node -r esm src/index.js",
-    "test": "cross-env TIMESTAMP=false jest",
+    "test:unit": "cross-env TIMESTAMP=false jest src/",
+    "test:integration": "jest tests/integration",
+    "test": "yarn test:unit && yarn test:integration",
     "format": "prettier --write ./src",
     "format:check": "prettier --check ./src"
   },
