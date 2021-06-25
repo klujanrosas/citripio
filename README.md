@@ -1,4 +1,5 @@
-# 🚧 WIP 🚧 Citripio
+# 🤖 Citripio
+
 A barebones linked entries log with crypto sprinkled on top 🐱‍🏍
 
 ## Repo local setup
