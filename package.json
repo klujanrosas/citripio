@@ -3,8 +3,8 @@
   "description": "A barebones file system logger with crypto sprinkled on top",
   "author": "Kenneth Lujan <kenneth.lujan@kw.com> (https://github.com/klujanrosas)",
   "scripts": {
-    "start": "node -r esm src/index.js",
-    "test": "jest",
+    "start": "cross-env TIMESTAMP=true PORT=3000 node -r esm src/index.js",
+    "test": "cross-env TIMESTAMP=false jest",
     "format": "prettier --write ./src",
     "format:check": "prettier --check ./src"
   },
@@ -14,8 +14,17 @@
     "fastify": "^3.18.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.5",
     "@types/jest": "^26.0.23",
+    "babel-jest": "^27.0.5",
+    "cross-env": "^7.0.3",
+    "cross-spawn": "^7.0.3",
+    "get-port": "^5.1.1",
     "jest": "^27.0.5",
-    "prettier": "^2.3.1"
+    "node-fetch": "^2.6.1",
+    "pkg-dir": "^5.0.0",
+    "prettier": "^2.3.1",
+    "tree-kill": "^1.2.2"
   }
 }
