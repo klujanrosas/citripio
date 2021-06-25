@@ -1,3 +1,3 @@
 export function getUTCDate() {
-  return new Date().toUTCString()
+  return new Date().toUTCString();
 }
