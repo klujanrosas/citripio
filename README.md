@@ -11,19 +11,22 @@ A barebones linked entries log with crypto sprinkled on top 🐱‍🏍
 
 ### Routes
 
-List current entries in log
+##### List current entries in log
 
-```
-GET /
+```bash
+curl --request GET \
+  --url http://localhost:3000/
 ```
 
-Write an entry into the log
+##### Write an entry into the log
 
-```
-POST /citripio
-{
-  "message": "my cool message"
-}
+```bash
+curl --request POST \
+  --url http://localhost:3000/citripio \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "message": "my cool message"
+  }'
 ```
 
 ### Testing
